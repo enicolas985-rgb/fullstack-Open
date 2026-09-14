@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant navegador as Navegador
+    participant servidor as Servidor
+
+    Note over navegador: El manejador de eventos evita el envío por defecto (e.preventDefault())
+    Note over navegador: La JS agrega la nueva nota a la lista local y la vuelve a dibujar en el DOM
+
+    navegador->>servidor: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate servidor
+    Note over navegador: Envía el objeto JSON en el payload con Content-type: application/json
+    servidor-->>navegador: Código de estado HTTP 201 Created
+    deactivate servidor

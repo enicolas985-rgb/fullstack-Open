@@ -1,0 +1,33 @@
+sequenceDiagram
+    participant navegador as Navegador
+    participant servidor as Servidor
+
+    navegador->>servidor: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate servidor
+    Note over navegador: El cuerpo del POST contiene los datos del formulario (note: "texto")
+    servidor-->>navegador: Código de estado HTTP 302 (Redirección a /notes)
+    deactivate servidor
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate servidor
+    servidor-->>navegador: Documento HTML
+    deactivate servidor
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate servidor
+    servidor-->>navegador: Archivo CSS (main.css)
+    deactivate servidor
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate servidor
+    servidor-->>navegador: Archivo JavaScript (main.js)
+    deactivate servidor
+
+    Note over navegador: El navegador ejecuta main.js para solicitar el archivo JSON
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate servidor
+    servidor-->>navegador: [{ "content": "texto", "date": "2026-09-14" }, ...]
+    deactivate servidor
+
+    Note over navegador: El navegador ejecuta el callback y renderiza las notas en el DOM

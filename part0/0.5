@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant navegador as Navegador
+    participant servidor as Servidor
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate servidor
+    servidor-->>navegador: Documento HTML
+    deactivate servidor
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate servidor
+    servidor-->>navegador: Archivo CSS (main.css)
+    deactivate servidor
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate servidor
+    servidor-->>navegador: Archivo JavaScript (spa.js)
+    deactivate servidor
+
+    Note over navegador: El navegador ejecuta spa.js para solicitar los datos JSON
+
+    navegador->>servidor: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate servidor
+    servidor-->>navegador: [{ "content": "nota existente", "date": "2026-09-14" }, ...]
+    deactivate servidor
+
+    Note over navegador: El navegador ejecuta la función de respuesta que renderiza las notas en el DOM
